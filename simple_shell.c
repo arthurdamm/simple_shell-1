@@ -67,6 +67,8 @@ int main(void)
 			}
 
 			last_return = cmd_handler(argv, env);
+			/* balance malloc() from get_tokens_strtok.c:26 */
+			FREE(argv);
 		}
 		free(argvv);
 	}
