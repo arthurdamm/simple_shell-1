@@ -36,7 +36,7 @@ int cmd_handler(char **argv, env_list_t **env)
 	char *built_ins[] = {"cd", "setenv", "unsetenv", "env", NULL};
 	int i, status;
 	struct stat st;
-	char *path_to_file;
+	char *path_to_file = NULL;
 	pid_t child_pid;
 	char **str_env = _get_str_env(env);
 
@@ -59,13 +59,13 @@ int cmd_handler(char **argv, env_list_t **env)
 	else
 	{
 		path_to_file = whitcher(argv[0], env);
+		if (path_to_file && _strcmp(path_to_file, _getenv_list_value("PATH", env)))
+		{
+			path_to_file = _strcat(path_to_file, "/");
+			path_to_file = _strcat(path_to_file, argv[0]);
+		}
 	}
-	if (path_to_file && _strcmp(path_to_file, _getenv_list_value("PATH", env)))
-	{
-		path_to_file = _strcat(path_to_file, "/");
-		path_to_file = _strcat(path_to_file, argv[0]);
-	}
-	else
+	if (!path_to_file)
 	{
 		printf("%s: command not found\n", argv[0]);
 		double_free(str_env);
