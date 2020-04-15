@@ -11,6 +11,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+/* this just does in one line: free(x); x = NULL; */
+#define FREE(x) (x = (free(x), NULL))
+
 /* structs */
 /**
   * struct order - struct to contain &&'s and ||'s
