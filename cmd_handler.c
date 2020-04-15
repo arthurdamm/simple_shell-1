@@ -59,7 +59,6 @@ int cmd_handler(char **argv, env_list_t **env)
 	else
 	{
 		path_to_file = whitcher(argv[0], env);
-		printf("PATH:[%s]\n", path_to_file);
 	}
 	if (path_to_file && _strcmp(path_to_file, _getenv_list_value("PATH", env)))
 	{

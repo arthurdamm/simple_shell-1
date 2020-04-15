@@ -31,9 +31,11 @@ char *whitcher(char *cmd, env_list_t **env)
 			buf[0] = 0; /* empty buffer */
 			_strcat(buf, tokens[i]);
 			FREE(PATH_COPY);
+			free(tokens);
 			return (buf);
 		}
 	}
 	FREE(PATH_COPY);
+	free(tokens);
 	return (NULL);
 }
