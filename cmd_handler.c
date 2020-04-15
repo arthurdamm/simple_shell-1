@@ -51,16 +51,19 @@ int cmd_handler(char **argv, env_list_t **env)
 		}
 	}
 
-	path_to_file = whitcher(argv[0], env);
-
 	/* if it's a full-path cmd */
 	/* else if it can be found in the PATH */
 	/* else it must not be a cmd */
 	if (stat(argv[0], &st) == 0)
 		path_to_file = argv[0];
-	else if (_strcmp(path_to_file, _getenv_list_value("PATH", env)))
+	else
 	{
-		path_to_file = _strcat(whitcher(argv[0], env), "/");
+		path_to_file = whitcher(argv[0], env);
+		printf("PATH:[%s]\n", path_to_file);
+	}
+	if (path_to_file && _strcmp(path_to_file, _getenv_list_value("PATH", env)))
+	{
+		path_to_file = _strcat(path_to_file, "/");
 		path_to_file = _strcat(path_to_file, argv[0]);
 	}
 	else
